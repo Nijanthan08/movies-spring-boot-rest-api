@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.movie.reviews.domain.Genres;
 import com.movie.reviews.domain.Languages;
+import com.movie.reviews.domain.Movies;
 import com.movie.reviews.service.MoviesService;
 
 @RestController
@@ -26,6 +27,11 @@ public class MoviesController {
 	@RequestMapping(value = "/genres", method = RequestMethod.GET)
 	public List<Genres> getAllGenres() {
 		return moviesService.getAllGenres();
+	}
+	
+	@RequestMapping(method = RequestMethod.GET)
+	public List<Movies> getAllMovies() {
+		return moviesService.getAllMovies();
 	}
 
 }
