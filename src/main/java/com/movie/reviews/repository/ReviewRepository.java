@@ -10,7 +10,7 @@ import com.movie.reviews.domain.Reviews;
 
 public interface ReviewRepository extends CrudRepository<Reviews, Integer> {
 	
-	@Query("Select reviews from Reviews reviews where reviews.movie= :movieId")
+	@Query("Select reviews from Reviews reviews where reviews.movieId= :movieId")
 	List<Reviews> fetchReviewByMovieId(@Param("movieId") Integer movieId);
 
 }

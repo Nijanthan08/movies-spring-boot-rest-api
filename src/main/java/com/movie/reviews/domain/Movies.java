@@ -1,9 +1,13 @@
 package com.movie.reviews.domain;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -13,45 +17,55 @@ import javax.persistence.Transient;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
 @Entity
-@Table(name="movies")
+@Table(name = "movies")
 public class Movies {
 
 	@Id
-	@Column(name="id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private Integer id;
-	
-	@Column(name="name")
+
+	@Column(name = "name")
 	private String name;
-	
-	@Column(name="releaseYear")
+
+	@Column(name = "releaseYear")
 	private Integer releaseYear;
-	
-	@Column(name="story")
+
+	@Column(name = "story")
 	private String story;
-	
-	@Column(name="base64Img")
+
+	@Column(name = "base64Img")
 	private String base64Img;
-	
-	@Column(name="languageId")
+
+	@Column(name = "languageId")
 	private Integer languageId;
-	
-	@Column(name="genreId")
+
+	@Column(name = "genreId")
 	private Integer genreId;
 
-	@Column(name="createdTimestamp")
-	private String createdTimestamp;
-	
+	@Column(name = "createdBy")
+	private Integer createdBy;
+
+	@Column(name = "active")
+	private String active;
+
+	@Column(name = "createdTimestamp")
+	private Date createdTimestamp;
+
+	@Column(name = "lastUpdtTimestamp")
+	private Date lastUpdtTimestamp;
+
 	@Transient
 	private String genre;
-	
+
 	@Transient
 	private String language;
-	
-	@OneToOne
-	@JoinColumn(name="id", referencedColumnName="movieId")
+
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id")
 	@JsonUnwrapped
 	private Ratings rating;
-	
+
 	@Transient
 	private List<Reviews> reviews;
 
@@ -111,12 +125,36 @@ public class Movies {
 		this.genreId = genreId;
 	}
 
-	public String getCreatedTimestamp() {
+	public Integer getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(Integer createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public String getActive() {
+		return active;
+	}
+
+	public void setActive(String active) {
+		this.active = active;
+	}
+
+	public Date getCreatedTimestamp() {
 		return createdTimestamp;
 	}
 
-	public void setCreatedTimestamp(String createdTimestamp) {
+	public void setCreatedTimestamp(Date createdTimestamp) {
 		this.createdTimestamp = createdTimestamp;
+	}
+
+	public Date getLastUpdtTimestamp() {
+		return lastUpdtTimestamp;
+	}
+
+	public void setLastUpdtTimestamp(Date lastUpdtTimestamp) {
+		this.lastUpdtTimestamp = lastUpdtTimestamp;
 	}
 
 	public String getGenre() {
@@ -150,4 +188,5 @@ public class Movies {
 	public void setReviews(List<Reviews> reviews) {
 		this.reviews = reviews;
 	}
+
 }

@@ -1,7 +1,11 @@
 package com.movie.reviews.domain;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -10,11 +14,12 @@ import javax.persistence.Table;
 public class Reviews {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	private Integer reviewId;
 
 	@Column(name = "movieId")
-	private Integer movie;
+	private Integer movieId;
 
 	@Column(name = "createdUserId")
 	private Integer createdUserId;
@@ -32,7 +37,7 @@ public class Reviews {
 	private Double rating;
 
 	@Column(name = "createTimestamp")
-	private String createTimestamp;
+	private Date createTimestamp;
 
 	public Integer getReviewId() {
 		return reviewId;
@@ -42,12 +47,12 @@ public class Reviews {
 		this.reviewId = reviewId;
 	}
 
-	public Integer getMovie() {
-		return movie;
+	public Integer getMovieId() {
+		return movieId;
 	}
 
-	public void setMovie(Integer movie) {
-		this.movie = movie;
+	public void setMovieId(Integer movieId) {
+		this.movieId = movieId;
 	}
 
 	public Integer getCreatedUserId() {
@@ -90,11 +95,11 @@ public class Reviews {
 		this.rating = rating;
 	}
 
-	public String getCreateTimestamp() {
+	public Date getCreateTimestamp() {
 		return createTimestamp;
 	}
 
-	public void setCreateTimestamp(String createTimestamp) {
+	public void setCreateTimestamp(Date createTimestamp) {
 		this.createTimestamp = createTimestamp;
 	}
 }

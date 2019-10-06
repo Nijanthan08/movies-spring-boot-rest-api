@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.movie.reviews.domain.Genres;
 import com.movie.reviews.domain.Languages;
 import com.movie.reviews.domain.Movies;
+import com.movie.reviews.domain.Reviews;
 import com.movie.reviews.service.MoviesService;
 
 
@@ -53,10 +55,25 @@ public class MoviesController {
 	public List<Movies> getMovieInfo(@PathVariable("movieId") Integer movieId) {
 		return moviesService.getMovieInfo(movieId);
 	}
+	
+	@RequestMapping(value = "/review", method = RequestMethod.POST)
+	public List<Movies> addMovieReview(@RequestBody Reviews reviews) {
+		LOG.info("Add Movie Reviews...");
+		moviesService.addReview(reviews);
+		
+		return moviesService.getMovieInfo(reviews.getMovieId());
+	}
 
 	@RequestMapping(method = RequestMethod.GET)
 	public List<Movies> getAllMovies() {
 		LOG.info("Fetch all the Movies...");
+		return moviesService.getAllMovies();
+	}
+	
+	@RequestMapping(method = RequestMethod.POST)
+	public List<Movies> addMovie(@RequestBody Movies movie) {
+		LOG.info("Add a Movie...");
+		moviesService.addMovie(movie);
 		return moviesService.getAllMovies();
 	}
 

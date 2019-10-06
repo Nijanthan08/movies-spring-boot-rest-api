@@ -1,21 +1,31 @@
 package com.movie.reviews.domain;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.NaturalId;
-
 @Entity
 @Table(name = "ratings")
 public class Ratings {
 
-	@Id
-	@Column(name = "id")
-	private Integer ratingId;
+	public Ratings() {
+	}
 
-	@NaturalId
+	public Ratings(Integer movieId, Integer likes, Integer dislike, Double rating, Integer totalRatings,
+			Date createTimestamp) {
+		super();
+		this.movieId = movieId;
+		this.likes = likes;
+		this.dislike = dislike;
+		this.rating = rating;
+		this.totalRatings = totalRatings;
+		this.createTimestamp = createTimestamp;
+	}
+
+	@Id
 	@Column(name = "movieId")
 	private Integer movieId;
 
@@ -29,15 +39,10 @@ public class Ratings {
 	private Double rating;
 
 	@Column(name = "totalRatings")
-	private Double totalRatings;
-	
-	public Integer getRatingId() {
-		return ratingId;
-	}
+	private Integer totalRatings;
 
-	public void setRatingId(Integer ratingId) {
-		this.ratingId = ratingId;
-	}
+	@Column(name = "createTimestamp")
+	private Date createTimestamp;
 
 	public Integer getMovieId() {
 		return movieId;
@@ -71,13 +76,20 @@ public class Ratings {
 		this.rating = rating;
 	}
 
-	public Double getTotalRatings() {
+	public Integer getTotalRatings() {
 		return totalRatings;
 	}
 
-	public void setTotalRatings(Double totalRatings) {
+	public void setTotalRatings(Integer totalRatings) {
 		this.totalRatings = totalRatings;
 	}
-	
-	
+
+	public Date getCreateTimestamp() {
+		return createTimestamp;
+	}
+
+	public void setCreateTimestamp(Date createTimestamp) {
+		this.createTimestamp = createTimestamp;
+	}
+
 }
