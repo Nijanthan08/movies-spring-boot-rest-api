@@ -12,29 +12,29 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "users")
 public class User {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@Column(name = "firstName")
 	private String firstName;
-	
+
 	@Column(name = "lastName")
 	private String lastName;
-	
+
 	@Column(name = "emailId")
 	private String emailId;
-	
+
 	@Column(name = "password")
 	private String password;
-	
+
 	@Column(name = "admin")
 	private String admin;
-	
+
 	@Column(name = "active")
 	private String active;
-	
+
 	@Column(name = "createdTimestamp")
 	private Date createdTimestamp;
 
@@ -101,5 +101,11 @@ public class User {
 	public void setCreatedTimestamp(Date createdTimestamp) {
 		this.createdTimestamp = createdTimestamp;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "{id:" + id + ", firstName:" + firstName + ", lastName:" + lastName + ", emailId:" + emailId + ", admin:"
+				+ admin + "}";
+	}
+
 }

@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,16 +27,17 @@ public class UserController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(@RequestBody User loginUser, HttpServletResponse response) {
+		String token = null;
 		try {
 			User user = userService.login(loginUser);
 			if (null == user) {
 				response.sendError(HttpServletResponse.SC_FORBIDDEN, "Invalid Credentials !!!");
-			}
-			
+			} else
+				token = userService.buildJsonWebToken(user);
 		} catch (Exception e) {
 			LOG.error("Exception : " + e);
 		}
-		return null;
+		return token;
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
