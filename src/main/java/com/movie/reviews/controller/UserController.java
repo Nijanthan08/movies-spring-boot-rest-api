@@ -24,14 +24,28 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String login(@RequestBody User loginUser, HttpServletResponse response) {
+		try {
+			User user = userService.login(loginUser);
+			if (null == user) {
+				response.sendError(HttpServletResponse.SC_FORBIDDEN, "Invalid Credentials !!!");
+			}
+			
+		} catch (Exception e) {
+			LOG.error("Exception : " + e);
+		}
+		return null;
+	}
+
 	@RequestMapping(method = RequestMethod.POST)
 	public void signUp(@RequestBody User user, HttpServletResponse response) {
 		LOG.info("Sign Up....");
 
 		try {
 			String status = userService.signUp(user);
-			
-			if (!"Done".equalsIgnoreCase(status))
+
+			if (!"Success".equalsIgnoreCase(status))
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST, status);
 			else
 				response.sendError(HttpServletResponse.SC_OK, status);

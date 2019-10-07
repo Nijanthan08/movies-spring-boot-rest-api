@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 import com.movie.reviews.domain.User;
 import com.movie.reviews.repository.UserRepository;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
+import at.favre.lib.crypto.bcrypt.BCrypt.Result;
+
 @Service
 public class UserService {
 
@@ -22,17 +25,35 @@ public class UserService {
 	public String signUp(User user) {
 		String status = "Existing User... Please Login !!!";
 		List<User> list = userRepository.fetchUserByEmailId(user.getEmailId());
-		
+
 		if (list.isEmpty()) {
 			user.setAdmin("N");
 			user.setActive("Y");
 			user.setCreatedTimestamp(new Date());
 			userRepository.save(user);
-			status = "Done";
+			status = "Success";
 		} else
 			LOG.info(status);
-		
+
 		return status;
+	}
+
+	public User login(User loginUser) {
+		List<User> list = userRepository.fetchUserByEmailId(loginUser.getEmailId());
+		boolean loginSuccess = false;
+		if (!list.isEmpty()) {
+			User user = list.get(0);
+			loginSuccess = validatePassword(loginUser, user);
+			LOG.info("Login Successful : " + loginSuccess);
+			
+		}
+		return loginSuccess ? null : list.get(0);
+
+	}
+
+	private boolean validatePassword(User loginUser, User user) {
+		Result result = BCrypt.verifyer().verify(loginUser.getPassword().toCharArray(), user.getPassword());
+		return result.verified;
 	}
 
 }
