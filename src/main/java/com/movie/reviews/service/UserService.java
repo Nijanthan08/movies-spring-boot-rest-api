@@ -13,6 +13,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.movie.reviews.domain.User;
 import com.movie.reviews.repository.UserRepository;
+import com.movie.reviews.security.ManageJsonWebTokens;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import at.favre.lib.crypto.bcrypt.BCrypt.Result;
@@ -20,13 +21,14 @@ import at.favre.lib.crypto.bcrypt.BCrypt.Result;
 @Service
 public class UserService {
 
-	@Autowired
-	private Environment env;
 
 	private static final Logger LOG = LoggerFactory.getLogger(UserService.class);
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private ManageJsonWebTokens jsonWebTokens;
 
 	public String signUp(User user) {
 		String status = "Existing User... Please Login !!!";
@@ -49,7 +51,7 @@ public class UserService {
 		return BCrypt.withDefaults().hashToString(12, password.toCharArray());
 	}
 
-	public User login(User loginUser) {
+	public String login(User loginUser) {
 		List<User> list = userRepository.fetchUserByEmailId(loginUser.getEmailId());
 		boolean loginSuccess = false;
 		if (!list.isEmpty()) {
@@ -58,7 +60,7 @@ public class UserService {
 			LOG.info("Login Successful : " + loginSuccess);
 
 		}
-		return loginSuccess ? list.get(0) : null;
+		return loginSuccess ? jsonWebTokens.build(list.get(0)) : null;
 
 	}
 
@@ -67,19 +69,6 @@ public class UserService {
 		return result.verified;
 	}
 
-	public String buildJsonWebToken(User user) {
-
-		try {
-			Algorithm algorithm = Algorithm.HMAC256(env.getProperty("privateKey"));
-			String token = JWT.create().withClaim("id", user.getId()).withClaim("firstName", user.getFirstName())
-					.withClaim("lastName", user.getLastName()).withClaim("emailId", user.getEmailId())
-					.withClaim("admin", user.getAdmin()).sign(algorithm);
-			LOG.debug(token);
-			return token;
-		} catch (Exception e) {
-			LOG.error("Exception: " + e);
-		}
-		return null;
-	}
+	
 
 }
