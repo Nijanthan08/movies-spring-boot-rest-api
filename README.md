@@ -31,13 +31,23 @@ Please follow the steps mentioned below to run the Batch Application in your loc
 
     Maven Configuration -> https://www.tutorialspoint.com/maven/maven_environment_setup.htm
     
-3. Clone the repository to your local workspace
+3. SQL Server is essential to perform the database operations
 
-4. Import the project to Eclipse using the Existing Maven Project Option
+4. Clone the repository to your local workspace
 
-5. Update the application.properties file with the SQL Database used by the REST API and the privateKey value based on your preference. Private key is used for generating the JSON Web Token for authentication
+5. Import the project to Eclipse using the Existing Maven Project Option
 
-6. Open commannd prompt in the project folder and run the following command mentioned below to trigger the Batch Processing
+6. Update the application.properties file with the SQL Database information and the privateKey value based on your preference. Private key is used for generating the JSON Web Token for authentication
+
+7. Open commannd prompt in the project folder and run the following command mentioned below to start the REST API
 
       mvn spring-boot:run
+      
+8. Integrate the REST API to the WEB APP to launch the Movie Review Portal Application. Refer the following repository to setup the WEB APP in your local
+
+    https://github.com/Nijanthan08/movies-web-app
+
+9. A Spring Boot Batch Application is needed for processing User Reviews and update the Database with Top Rated Movies in Real-Time
+
+    https://github.com/Nijanthan08/movies-spring-boot-batch
 
