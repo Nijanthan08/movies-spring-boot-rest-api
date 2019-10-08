@@ -13,6 +13,18 @@ import javax.persistence.Table;
 @Table(name = "users")
 public class User {
 
+	public User() {
+	}
+
+	public User(Integer id, String firstName, String lastName, String emailId, String admin) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.emailId = emailId;
+		this.admin = admin;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
