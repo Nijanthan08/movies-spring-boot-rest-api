@@ -1,7 +1,5 @@
 package com.movie.reviews.security;
 
-import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
 import com.movie.reviews.domain.User;
@@ -24,6 +21,7 @@ public class ManageJsonWebTokens {
 	private Environment env;
 
 	public String build(User user) {
+		LOG.info("Build Json Web Token...");
 		String token = null;
 		try {
 			Algorithm algorithm = Algorithm.HMAC256(env.getProperty("privateKey"));
@@ -38,6 +36,7 @@ public class ManageJsonWebTokens {
 	}
 
 	public User decode(String jwt) {
+		LOG.info("Decode Json Web Token...");
 		User user = null;
 		try {
 			Algorithm algorithm = Algorithm.HMAC256(env.getProperty("privateKey"));
