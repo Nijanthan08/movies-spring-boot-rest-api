@@ -5,19 +5,19 @@ REST API for the WEB APP(Movie Review Portal). API host the following services m
 
 1. View the list of Movies available from the HTTP service GET : http://localhost:8080/api/movies
 
-![](/screenshots/Movies.jpg)
+![](/attachments/screenshots/Movies.jpg)
 
 2. Check complete Movie information from the HTTP service GET : http://localhost:8080/api/movies/"movieId"
 
-![](/screenshots/MovieInfo.jpg)
+![](/attachments/screenshots/MovieInfo.jpg)
 
 3. Add Reviews to the movie from the HTTP service POST :  http://localhost:8080/api/movies/review
 
-![](/screenshots/CheckReviews.jpg)
+![](/attachments/screenshots/CheckReviews.jpg)
 
 4. Add a Movie to the portal using the HTTP service POST : http://localhost:8080/api/movies
 
-![](/screenshots/AddMovie.jpg)
+![](/attachments/screenshots/AddMovie.jpg)
 
 Please follow the steps mentioned below to run the Batch Application in your local:
 
@@ -31,7 +31,10 @@ Please follow the steps mentioned below to run the Batch Application in your loc
 
     Maven Configuration -> https://www.tutorialspoint.com/maven/maven_environment_setup.htm
     
-3. SQL Server is essential to perform the database operations
+3. SQL Server is essential to perform the database operations. Execute the scripts from the attachments folder in the following order mentioned below:
+
+	create scripts.sql <br/>
+	insert scripts.sql
 
 4. Clone the repository to your local workspace
 
