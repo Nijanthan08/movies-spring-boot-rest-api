@@ -31,16 +31,19 @@ Please follow the steps mentioned below to run the Batch Application in your loc
 
     Maven Configuration -> https://www.tutorialspoint.com/maven/maven_environment_setup.htm
     
-3. SQL Server is essential to perform the database operations. Execute the scripts from the attachments folder in the following order mentioned below:
-
-	create scripts.sql <br/>
-	insert scripts.sql
+3. SQL Server is essential to perform the database operations. 
 
 4. Clone the repository to your local workspace
 
 5. Import the project to Eclipse using the Existing Maven Project Option
 
 6. Update the application.properties file with the SQL Database information and the privateKey value based on your preference. Private key is used for generating the JSON Web Token for authentication
+
+   Execute the scripts in the above mentioned Database in the order as below. Please find the scripts in the attachments folder.
+
+	create scripts.sql <br/>
+	insert scripts.sql
+  
 
 7. Open commannd prompt in the project folder and run the following command mentioned below to start the REST API
 
