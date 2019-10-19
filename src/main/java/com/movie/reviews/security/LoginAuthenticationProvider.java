@@ -11,6 +11,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.movie.reviews.domain.UserEntity;
 
 public class LoginAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
+		
+	public LoginAuthenticationProvider(UserDetailsServiceImpl userDetailsServiceImpl) {
+		super();
+		this.userDetailsServiceImpl = userDetailsServiceImpl;
+	}
 
 	private UserDetailsServiceImpl userDetailsServiceImpl;
 
