@@ -8,6 +8,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.movie.reviews.domain.Role;
+
 public class User implements UserDetails {
 
 	/**
@@ -15,8 +17,7 @@ public class User implements UserDetails {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public User(Integer id, String firstName, String lastName, String emailId, String admin, String active,
-			String role) {
+	public User(Integer id, String firstName, String lastName, String emailId, String admin, String active) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -24,7 +25,7 @@ public class User implements UserDetails {
 		this.emailId = emailId;
 		this.admin = admin;
 		this.active = active;
-		this.role = role;
+		this.role = "Y".equalsIgnoreCase(admin) ? Role.ADMIN.toString() : Role.USER.toString();
 	}
 
 	private Integer id;

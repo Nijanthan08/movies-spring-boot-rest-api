@@ -18,12 +18,11 @@ import at.favre.lib.crypto.bcrypt.BCrypt.Result;
 @Service
 public class UserService {
 
-
 	private static final Logger LOG = LoggerFactory.getLogger(UserService.class);
 
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	public String signUp(UserEntity user) {
 		String status = "Existing User... Please Login !!!";
 		List<UserEntity> list = userRepository.fetchUserByEmailId(user.getEmailId());
@@ -44,25 +43,5 @@ public class UserService {
 	private String hashPassword(String password) {
 		return BCrypt.withDefaults().hashToString(12, password.toCharArray());
 	}
-
-//	public String login(UserEntity loginUser) {
-//		List<UserEntity> list = userRepository.fetchUserByEmailId(loginUser.getEmailId());
-//		boolean loginSuccess = false;
-//		if (!list.isEmpty()) {
-//			UserEntity user = list.get(0);
-//			loginSuccess = validatePassword(loginUser, user);
-//			LOG.info("Login Successful : " + loginSuccess);
-//
-//		}
-//		return loginSuccess ? jsonWebTokens.build(list.get(0)) : null;
-//
-//	}
-//
-//	private boolean validatePassword(UserEntity loginUser, UserEntity user) {
-//		Result result = BCrypt.verifyer().verify(loginUser.getPassword().toCharArray(), user.getPassword());
-//		return result.verified;
-//	}
-
-	
 
 }

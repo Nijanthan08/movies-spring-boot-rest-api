@@ -47,8 +47,7 @@ public class TokenAuthenticationService {
 
 			user = new User(jwtDecoded.getClaim("id").asInt(), jwtDecoded.getClaim("firstName").asString(),
 					jwtDecoded.getClaim("lastName").asString(), jwtDecoded.getClaim("emailId").asString(), admin,
-					jwtDecoded.getClaim("active").asString(),
-					"Y".equalsIgnoreCase(admin) ? Role.ADMIN.toString() : Role.USER.toString());
+					jwtDecoded.getClaim("active").asString());
 		} catch (Exception exception) {
 			LOG.error("Exception: " + exception);
 		}
