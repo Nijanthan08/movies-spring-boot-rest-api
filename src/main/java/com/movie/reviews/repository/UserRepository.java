@@ -6,10 +6,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-import com.movie.reviews.domain.User;
+import com.movie.reviews.domain.UserEntity;
 
-public interface UserRepository extends CrudRepository<User, Integer> {
+public interface UserRepository extends CrudRepository<UserEntity, Integer> {
 
 	@Query("Select user from User user where user.emailId = :emailId and user.active='Y'")
-	List<User> fetchUserByEmailId(@Param("emailId") String emailId);
+	List<UserEntity> fetchUserByEmailId(@Param("emailId") String emailId);
 }

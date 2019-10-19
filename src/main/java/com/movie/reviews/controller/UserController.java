@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.movie.reviews.domain.User;
+import com.movie.reviews.domain.UserEntity;
 import com.movie.reviews.service.UserService;
 
 @CrossOrigin
@@ -25,21 +25,14 @@ public class UserController {
 	private UserService userService;
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(@RequestBody User loginUser, HttpServletResponse response) {
+	public String login(@RequestBody UserEntity loginUser, HttpServletResponse response) {
 		String jwt = null;
-		try {
-			jwt = userService.login(loginUser);
-			if (null == jwt) {
-				response.sendError(HttpServletResponse.SC_FORBIDDEN, "Invalid Credentials !!!");
-			}
-		} catch (Exception e) {
-			LOG.error("Exception : " + e);
-		}
+		
 		return jwt;
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public void signUp(@RequestBody User user, HttpServletResponse response) {
+	public void signUp(@RequestBody UserEntity user, HttpServletResponse response) {
 		LOG.info("Sign Up....");
 
 		try {

@@ -8,9 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.movie.reviews.domain.User;
+import com.movie.reviews.domain.UserEntity;
 import com.movie.reviews.repository.UserRepository;
-import com.movie.reviews.security.ManageJsonWebTokens;
+import com.movie.reviews.security.TokenAuthenticationService;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import at.favre.lib.crypto.bcrypt.BCrypt.Result;
@@ -24,12 +24,9 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 	
-	@Autowired
-	private ManageJsonWebTokens jsonWebTokens;
-
-	public String signUp(User user) {
+	public String signUp(UserEntity user) {
 		String status = "Existing User... Please Login !!!";
-		List<User> list = userRepository.fetchUserByEmailId(user.getEmailId());
+		List<UserEntity> list = userRepository.fetchUserByEmailId(user.getEmailId());
 
 		if (list.isEmpty()) {
 			user.setPassword(hashPassword(user.getPassword()));
@@ -48,23 +45,23 @@ public class UserService {
 		return BCrypt.withDefaults().hashToString(12, password.toCharArray());
 	}
 
-	public String login(User loginUser) {
-		List<User> list = userRepository.fetchUserByEmailId(loginUser.getEmailId());
-		boolean loginSuccess = false;
-		if (!list.isEmpty()) {
-			User user = list.get(0);
-			loginSuccess = validatePassword(loginUser, user);
-			LOG.info("Login Successful : " + loginSuccess);
-
-		}
-		return loginSuccess ? jsonWebTokens.build(list.get(0)) : null;
-
-	}
-
-	private boolean validatePassword(User loginUser, User user) {
-		Result result = BCrypt.verifyer().verify(loginUser.getPassword().toCharArray(), user.getPassword());
-		return result.verified;
-	}
+//	public String login(UserEntity loginUser) {
+//		List<UserEntity> list = userRepository.fetchUserByEmailId(loginUser.getEmailId());
+//		boolean loginSuccess = false;
+//		if (!list.isEmpty()) {
+//			UserEntity user = list.get(0);
+//			loginSuccess = validatePassword(loginUser, user);
+//			LOG.info("Login Successful : " + loginSuccess);
+//
+//		}
+//		return loginSuccess ? jsonWebTokens.build(list.get(0)) : null;
+//
+//	}
+//
+//	private boolean validatePassword(UserEntity loginUser, UserEntity user) {
+//		Result result = BCrypt.verifyer().verify(loginUser.getPassword().toCharArray(), user.getPassword());
+//		return result.verified;
+//	}
 
 	
 
