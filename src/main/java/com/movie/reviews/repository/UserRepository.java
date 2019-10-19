@@ -10,6 +10,6 @@ import com.movie.reviews.domain.UserEntity;
 
 public interface UserRepository extends CrudRepository<UserEntity, Integer> {
 
-	@Query("Select user from User user where user.emailId = :emailId and user.active='Y'")
+	@Query("Select user from UserEntity user where user.emailId = :emailId and user.active='Y'")
 	List<UserEntity> fetchUserByEmailId(@Param("emailId") String emailId);
 }

@@ -28,7 +28,7 @@ public class UserController {
 	public String login(@RequestBody UserEntity loginUser, HttpServletResponse response) {
 		String jwt = null;
 		
-		return jwt;
+		return "Success";
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
